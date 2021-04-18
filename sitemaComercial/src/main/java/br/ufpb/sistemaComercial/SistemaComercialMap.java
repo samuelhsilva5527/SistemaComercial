@@ -40,6 +40,7 @@ public class SistemaComercialMap implements SistemaComercial {
             if (existeProduto(produto)) {
                 return false;
             }else{
+            	 this.produtos.put(produto.getCodigo(), produto);
                 return true;
             }
         }
