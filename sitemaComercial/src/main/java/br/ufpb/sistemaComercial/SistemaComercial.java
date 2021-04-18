@@ -1,6 +1,7 @@
 package br.ufpb.sistemaComercial;
 
 import java.util.Collection;
+import java.util.Map;
 
 public interface SistemaComercial {
 	public boolean existeProduto(Produto produto);
@@ -18,5 +19,7 @@ public interface SistemaComercial {
 	public Collection<Produto> pesquisaProdutosEmFaixaDePreco(double liteInferior, double limiteSuperior);
 	
 	public Collection<Produto> pesquisaProdutosComDescricaoComecandoCom(String prefixo);
+
+	public Map<String, Cliente> pesquisarTodosOsClientes();
 
 }

@@ -14,15 +14,6 @@ public class SistemaComercialMap implements SistemaComercial {
 		this.produtos = new HashMap<String, Produto>();
 	}
 
-    @Override
-    public boolean existeCliente(Cliente cliente){
-        if (this.clientes.containsKey(cliente.getId())){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 	@Override
 	public boolean existeProduto(Produto produto) {
 		if (this.produtos.containsKey(produto.getCodigo())) {
@@ -40,17 +31,6 @@ public class SistemaComercialMap implements SistemaComercial {
 		throw new ProdutoNaoExisteException("Não foi encontrado produto com o código " + codigoProduto);
 	}
 
-	@Override
-    public Collection<Produto> pesquisaProdutoDaCategoria(CategoriaProduto categoria) {
-        Collection<Produto> produtosCategoria = new ArrayList<>();
-        for (Produto p: this.produtos.values()) {
-            if (p.getCategoria().equals(categoria)) {
-                produtosCategoria.add(p);
-            }
-        }
-        return produtosCategoria;
-    }
-
     @Override
     public boolean cadastraProduto(Produto produto) {
         if (produtos.size()==0) {
@@ -65,6 +45,17 @@ public class SistemaComercialMap implements SistemaComercial {
         }
     }
 
+	@Override
+    public Collection<Produto> pesquisaProdutoDaCategoria(CategoriaProduto categoria) {
+        Collection<Produto> produtosCategoria = new ArrayList<>();
+        for (Produto p: this.produtos.values()) {
+            if (p.getCategoria().equals(categoria)) {
+                produtosCategoria.add(p);
+            }
+        }
+        return produtosCategoria;
+    }
+
     public boolean cadastraCliente(Cliente cliente){
         if (clientes.size()==0) {
             this.clientes.put(cliente.getId(), cliente);
@@ -76,6 +67,15 @@ public class SistemaComercialMap implements SistemaComercial {
                 this.clientes.put(cliente.getId(), cliente);
                 return true;
             }
+        }
+    }
+
+    @Override
+    public boolean existeCliente(Cliente cliente){
+        if (this.clientes.containsKey(cliente.getId())){
+            return true;
+        } else {
+            return false;
         }
     }
 	
@@ -114,4 +114,7 @@ public class SistemaComercialMap implements SistemaComercial {
         return produtosComDescricaoComecandoCom;
     }
 
+    public Map<String, Cliente> pesquisarTodosOsClientes() {
+        return clientes;
+    }
 }
