@@ -117,4 +117,8 @@ public class SistemaComercialMap implements SistemaComercial {
     public Map<String, Cliente> pesquisarTodosOsClientes() {
         return clientes;
     }
+
+    public Map<String, Produto> pesquisarTodosOsProdutos() {
+        return produtos;
+    }
 }

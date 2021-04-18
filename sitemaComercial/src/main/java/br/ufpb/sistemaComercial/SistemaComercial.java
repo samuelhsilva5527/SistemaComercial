@@ -22,4 +22,6 @@ public interface SistemaComercial {
 
 	public Map<String, Cliente> pesquisarTodosOsClientes();
 
+	public Map<String, Produto> pesquisarTodosOsProdutos();
+
 }
