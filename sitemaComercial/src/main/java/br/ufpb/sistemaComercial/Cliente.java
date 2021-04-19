@@ -20,7 +20,7 @@ public abstract class Cliente {
 	}
 	
 	public String toString() {
-		return "";
+		return "Cliente [Nome: " + nome + ", Endereço: " + endereco + ", Email: " + email + "]";
 	}
 
 	public String getNome() {
