@@ -123,9 +123,18 @@ class SistemaComercialMapTest {
 	
 	@Test
 	void pesquisarProdutoComDescricaoComecandoCom() {
+		
+		assertTrue(sistema.pesquisaProdutosComDescricaoComecandoCom("Mac").isEmpty());
+		
 		sistema.cadastraProduto(produtoAlimento);
 		sistema.cadastraProduto(produtoRoupa);
 		sistema.cadastraProduto(produtoLimpeza);
+		
+		assertTrue(sistema.pesquisaProdutosComDescricaoComecandoCom("Mac").size() == 1 );
+		
+		Produto macaxeira = new Produto("200", "Macaxeira", 120, 2, CategoriaProduto.ALIMENTO);
+		
+		assertTrue(sistema.pesquisaProdutosComDescricaoComecandoCom("Mac").size() == 2 );
 	}
 	
 }
