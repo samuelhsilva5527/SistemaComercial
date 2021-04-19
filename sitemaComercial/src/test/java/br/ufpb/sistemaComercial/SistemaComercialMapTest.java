@@ -2,6 +2,7 @@ package br.ufpb.sistemaComercial;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,45 @@ class SistemaComercialMapTest {
 		assertTrue(sistema.cadastraProduto(produtoLimpeza));
 		
 		assertTrue(sistema.pesquisarTodosOsProdutos().size() == 3);
+		
+		if(sistema.cadastraProduto(produtoAlimento)) {
+			fail("Não deveria cadastrar o mesmo produto");
+		}
 	}
-
-
+	
+	@Test
+	void testPesquisarProduto() {
+		
+		assertThrows(ProdutoNaoExisteException.class, ()-> sistema.pesquisaProduto(produtoAlimento.getCodigo()));
+		
+		try {
+			sistema.cadastraProduto(produtoAlimento);
+			assertTrue(sistema.pesquisaProduto(produtoAlimento.getCodigo()) instanceof Produto);
+		} catch (ProdutoNaoExisteException e) {
+			fail("Não deveria falhar");
+		}
+	}
+	
+	@Test
+	void testPesquisaProdutoDaCategoria() {
+		assertTrue(sistema.pesquisaProdutoDaCategoria(produtoAlimento.getCategoria()).isEmpty());
+		
+		
+		sistema.cadastraProduto(produtoAlimento);
+		sistema.cadastraProduto(produtoRoupa);
+		sistema.cadastraProduto(produtoLimpeza);
+		
+		assertTrue(sistema.pesquisaProdutoDaCategoria(produtoAlimento.getCategoria()).size() == 1);
+		assertTrue(sistema.pesquisaProdutoDaCategoria(produtoRoupa.getCategoria()).size() == 1);
+		assertTrue(sistema.pesquisaProdutoDaCategoria(produtoLimpeza.getCategoria()).size() == 1);
+		Produto produtoTeste = new Produto("199", "teste", 32, 10, CategoriaProduto.ROUPA );
+		
+		sistema.cadastraProduto(produtoTeste);
+		assertTrue(sistema.pesquisaProdutoDaCategoria(produtoRoupa.getCategoria()).size() == 2);
+	}
+	
+	@Test
+	void testPesquisaProdutosEmFaixaDePreco() {
+		
+	}
 }
