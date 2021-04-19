@@ -133,6 +133,7 @@ class SistemaComercialMapTest {
 		assertTrue(sistema.pesquisaProdutosComDescricaoComecandoCom("Mac").size() == 1 );
 		
 		Produto macaxeira = new Produto("200", "Macaxeira", 120, 2, CategoriaProduto.ALIMENTO);
+		sistema.cadastraProduto(macaxeira);
 		
 		assertTrue(sistema.pesquisaProdutosComDescricaoComecandoCom("Mac").size() == 2 );
 	}
