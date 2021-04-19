@@ -112,5 +112,20 @@ class SistemaComercialMapTest {
 	@Test
 	void testPesquisaProdutosEmFaixaDePreco() {
 		
+		sistema.cadastraProduto(produtoAlimento);
+		sistema.cadastraProduto(produtoRoupa);
+		sistema.cadastraProduto(produtoLimpeza);
+		
+		assertTrue(sistema.pesquisaProdutosEmFaixaDePreco(50, 100).size() == 0);
+		assertTrue(sistema.pesquisaProdutosEmFaixaDePreco(6, 301).size() == 2);
+		assertTrue(sistema.pesquisaProdutosEmFaixaDePreco(0, 1000).size() == 3);
 	}
+	
+	@Test
+	void pesquisarProdutoComDescricaoComecandoCom() {
+		sistema.cadastraProduto(produtoAlimento);
+		sistema.cadastraProduto(produtoRoupa);
+		sistema.cadastraProduto(produtoLimpeza);
+	}
+	
 }
