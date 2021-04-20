@@ -59,8 +59,6 @@ class SistemaComercialMapTest {
 	void testCadastrarProduto() {
 		assertTrue(sistema.pesquisarTodosOsProdutos().isEmpty());
 		
-		//assertTrue(sistema.pesquisarTodosOsProdutos() instanceof Map<?, ?>);
-		
 		assertTrue(sistema.pesquisarTodosOsProdutos() instanceof Map);
 		
 		assertTrue(sistema.cadastraProduto(produtoAlimento));

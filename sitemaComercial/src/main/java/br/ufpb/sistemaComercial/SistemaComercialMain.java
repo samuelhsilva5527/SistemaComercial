@@ -224,50 +224,65 @@ public class SistemaComercialMain {
                 case "6":
                     // Pesquisa produtos em uma faixa de preço
 
-                    boolean sairFaixaDePrecoMenor = false;
-                    boolean sairFaixaDePrecoMaior = false;
-                    String faixaDePrecoInferioStr = "";
+                    String faixaDePrecoInferiorStr = "";
                     String faixaDePrecoSuperiorStr = "";
-                    double faixaDePrecoInfeiror = 0;
-                    double faixaDePrecoSuperior = 0;
-                    try {
-                        do {
+                    Double faixaDePrecoInferior = 0.0;
+                    Double faixaDePrecoSuperior = 0.0;
+                    boolean validadeInferior = false;
+                    boolean validadeSuperior = false;
 
-                            if (faixaDePrecoInferioStr.isEmpty()) {
-                                faixaDePrecoInferioStr = JOptionPane.showInputDialog(null,
-                                "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
-                                + "\nDigite o limite infeiror");
-                            }else{
-                                sairFaixaDePrecoMenor = true;
+                    do{
+                        try{
+                            faixaDePrecoInferiorStr = JOptionPane.showInputDialog(
+                            "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
+                            + "\nDigite o limite infeiror");
+                            if(!faixaDePrecoInferiorStr.isEmpty()){
+                                faixaDePrecoInferior = Double.parseDouble(faixaDePrecoInferiorStr);
+                                Double d = faixaDePrecoInferior;
+                                if((d/1) == d){
+                                    validadeInferior = true;
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(null, "Digite as Entradas Corretamentes");
+                                    continue;
+                                }   
                             }
-    
-                        }while(!sairFaixaDePrecoMenor);
-                        faixaDePrecoInfeiror = Double.parseDouble(faixaDePrecoInferioStr);
-                    
-                        do{
-            
-                            if (faixaDePrecoSuperiorStr.isEmpty()) {
-                                faixaDePrecoSuperiorStr = JOptionPane.showInputDialog(null,
-                                "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
-                                + "\nDigite o limite superior");
-                            }else{
-                                sairFaixaDePrecoMaior = true;
-                            }
-                        }while(!sairFaixaDePrecoMaior);
-    
-                        faixaDePrecoSuperior = Double.parseDouble(faixaDePrecoSuperiorStr);
+                        }catch(Exception e){
+                            e.getStackTrace();
+                        }
+                    }while(!validadeInferior);
 
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Digite as entradas corretamente");
-                        e.getStackTrace();
-                    }
+                    do{
+                        try{
+                            faixaDePrecoSuperiorStr = JOptionPane.showInputDialog(
+                            "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
+                            + "\nDigite o limite superior");
+                            if(!faixaDePrecoSuperiorStr.isEmpty()){
+                                faixaDePrecoSuperior = Double.parseDouble(faixaDePrecoSuperiorStr);
+                                Double d = faixaDePrecoSuperior;
+                                if((d/1) == d){
+                                    validadeSuperior = true;
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(null, "Digites as entradas corretamentes");
+                                    continue;
+                                }
+                            }
+                        }catch(Exception e){
+                            e.getStackTrace();
+                        }
+                    }while(!validadeSuperior);
+
+
+                    System.out.println(faixaDePrecoInferior + " e " + faixaDePrecoSuperior);
+
                     String stringExibir = "Lista vazia";
 
-                    if (sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInfeiror, faixaDePrecoSuperior).isEmpty()) {
+                    if (sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInferior, faixaDePrecoSuperior).isEmpty()) {
                         JOptionPane.showMessageDialog(null, stringExibir);
                     }else{
                         stringExibir = "";
-                        Collection<Produto> produtosNaFaixaDePreco = sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInfeiror, faixaDePrecoSuperior);
+                        Collection<Produto> produtosNaFaixaDePreco = sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInferior, faixaDePrecoSuperior);
                         
                         for(Produto p: produtosNaFaixaDePreco){
                             stringExibir +=  p.getDescricao();
