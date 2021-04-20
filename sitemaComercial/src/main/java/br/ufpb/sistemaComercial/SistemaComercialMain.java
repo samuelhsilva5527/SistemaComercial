@@ -126,11 +126,13 @@ public class SistemaComercialMain {
                     break;
 
                 case "4":
-                    //Cadastrar Cliente //TODO
+                    //Cadastrar Cliente
+                    boolean cliente = false;
                     String nome;
                     String endereco;
                     String email;
                     int tipoCliente;
+                    String idCliente;
 
                     while (true) {
                         try {
@@ -141,12 +143,35 @@ public class SistemaComercialMain {
                                 "Digite o número correspondente ao cliente:"
                                         + "\n[1] - Pessoa Fisica"
                                         + "\n[2] - Pessoa Juridica"));
+                            
+                            switch (tipoCliente) {
+                                case 1:
+                                    idCliente = JOptionPane.showInputDialog(null, "Digite o CPF do cliente: ");
+                                    cliente = sistema.cadastraCliente(new ClientePF(nome, endereco, email, idCliente));
+                                    break;
+                                case 2:
+                                    idCliente = JOptionPane.showInputDialog(null, "Digite o CNPJ do cliente: ");
+                                    cliente = sistema.cadastraCliente(new ClientePJ(nome, endereco, email, idCliente));
+                                    break;
+                            }
+
+                            if (cliente) {
+                                JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Cliente!");
+                                break;
+                            }
 
                         }catch (NumberFormatException e) {
                             JOptionPane.showMessageDialog(null, "Digite as entradas corretamente!");
                             e.getStackTrace();
                         }
-                    }
+                    }//Fim do while
+
+                    //retorna ao menu principal
+                    break;
+
                 case "5":
                     // Pesquisar produtos de uma categoria específica TODO
                 case "6":
