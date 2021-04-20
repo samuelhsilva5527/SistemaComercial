@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +61,7 @@ class SistemaComercialMapTest {
 		
 		//assertTrue(sistema.pesquisarTodosOsProdutos() instanceof Map<?, ?>);
 		
-		//assertTrue(sistema.pesquisarTodosOsProdutos() instanceof Map<String, Produto>);
+		assertTrue(sistema.pesquisarTodosOsProdutos() instanceof Map);
 		
 		assertTrue(sistema.cadastraProduto(produtoAlimento));
 		
