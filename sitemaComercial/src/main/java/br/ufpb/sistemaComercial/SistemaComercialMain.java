@@ -176,13 +176,33 @@ public class SistemaComercialMain {
 
                 case "5":
                     // Pesquisar produtos de uma categoria específica
+                    String opcaoCategoria = "";
+                    boolean validadeOpcao = false;             
                     try {
-                        String opcaoCategoria = JOptionPane.showInputDialog(null,
+                        do{
+                            try {
+                                opcaoCategoria = JOptionPane.showInputDialog(null,
                                    "Digite o número correspondente a categoria:"
                                             + "\n[1] - ALIMENTO"
                                             + "\n[2] - ROUPA"
                                             + "\n[3] - PRODUTO_DE_LIMPEZA");
-                                            
+                                if(!opcaoCategoria.isEmpty()){
+                                    int numOpcao = Integer.parseInt(opcaoCategoria);
+                                    if(numOpcao/1 == numOpcao){                                        
+                                        validadeOpcao = true;                                    
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Digite as Entradas Corretamentes");
+                                        continue;
+                                    }
+                                }
+                                
+                            } catch (NumberFormatException e) {
+                                JOptionPane.showMessageDialog(null, "Digite as entradas corretamente!");
+                                e.getStackTrace();
+                            }                           
+
+                        }while(!validadeOpcao);    
+                                                                   
                         switch(opcaoCategoria){
                             case "1":                                
                                 Collection<Produto> produtoAlimento = sistema.pesquisaProdutoDaCategoria(CategoriaProduto.ALIMENTO);
@@ -213,14 +233,19 @@ public class SistemaComercialMain {
                                 }
                                 JOptionPane.showMessageDialog(null, stringExibirMsg3);  
                                 break; 
-                            }
-                        
+                            
+                            default:
+                                JOptionPane.showMessageDialog(null, "Número ou Caractere Inválido");
+                            }                            
+                            
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Digite as entradas corretamente!");
                         e.getStackTrace();
                     }
 
+                    //Retorna ao menu principal
                     break;
+
                 case "6":
                     // Pesquisa produtos em uma faixa de preço
 
