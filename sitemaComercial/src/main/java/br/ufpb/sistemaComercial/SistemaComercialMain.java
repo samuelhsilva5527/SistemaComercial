@@ -1,5 +1,7 @@
 package br.ufpb.sistemaComercial;
 
+import java.util.Collection;
+
 import javax.swing.*;
 
 public class SistemaComercialMain {
@@ -173,11 +175,128 @@ public class SistemaComercialMain {
                     break;
 
                 case "5":
-                    // Pesquisar produtos de uma categoria específica TODO
+                    // Pesquisar produtos de uma categoria específica
+                    try {
+                        String opcaoCategoria = JOptionPane.showInputDialog(null,
+                                   "Digite o número correspondente a categoria:"
+                                            + "\n[1] - ALIMENTO"
+                                            + "\n[2] - ROUPA"
+                                            + "\n[3] - PRODUTO_DE_LIMPEZA");
+                                            
+                        switch(opcaoCategoria){
+                            case "1":                                
+                                Collection<Produto> produtoAlimento = sistema.pesquisaProdutoDaCategoria(CategoriaProduto.ALIMENTO);
+                                
+                                String stringExibirMsg1 = "";
+                                for(Produto p: produtoAlimento){
+                                    stringExibirMsg1 +=  p.getDescricao();
+                                    stringExibirMsg1 +=  "\n";
+                                }
+                                JOptionPane.showMessageDialog(null, stringExibirMsg1); 
+                                break;                            
+                            case "2":
+                                Collection<Produto> produtoRoupa = sistema.pesquisaProdutoDaCategoria(CategoriaProduto.ROUPA);
+                                
+                                 String stringExibirMsg2 = "";
+                                     for(Produto p: produtoRoupa){
+                                        stringExibirMsg2 +=  p.getDescricao();
+                                        stringExibirMsg2 +=  "\n";
+                                    }
+                                    JOptionPane.showMessageDialog(null, stringExibirMsg2); 
+                                break; 
+                            case "3":
+                                Collection<Produto> produtoLimpeza = sistema.pesquisaProdutoDaCategoria(CategoriaProduto.PRODUTO_DE_LIMPEZA);                                    
+                                String stringExibirMsg3 = "";
+                                for(Produto p: produtoLimpeza){
+                                    stringExibirMsg3 +=  p.getDescricao();
+                                    stringExibirMsg3 +=  "\n";
+                                }
+                                JOptionPane.showMessageDialog(null, stringExibirMsg3);  
+                                break; 
+                            }
+                        
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Digite as entradas corretamente!");
+                        e.getStackTrace();
+                    }
+
+                    break;
                 case "6":
-                    // Pesquisa produtos em uma faixa de preço TODO
+                    // Pesquisa produtos em uma faixa de preço
+
+                    boolean sairFaixaDePrecoMenor = false;
+                    boolean sairFaixaDePrecoMaior = false;
+                    String faixaDePrecoInferioStr = "";
+                    String faixaDePrecoSuperiorStr = "";
+                    double faixaDePrecoInfeiror = 0;
+                    double faixaDePrecoSuperior = 0;
+                    try {
+                        do {
+
+                            if (faixaDePrecoInferioStr.isEmpty()) {
+                                faixaDePrecoInferioStr = JOptionPane.showInputDialog(null,
+                                "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
+                                + "\nDigite o limite infeiror");
+                            }else{
+                                sairFaixaDePrecoMenor = true;
+                            }
+    
+                        }while(!sairFaixaDePrecoMenor);
+                        faixaDePrecoInfeiror = Double.parseDouble(faixaDePrecoInferioStr);
+                    
+                        do{
+            
+                            if (faixaDePrecoSuperiorStr.isEmpty()) {
+                                faixaDePrecoSuperiorStr = JOptionPane.showInputDialog(null,
+                                "=============== PESQUISAR PRODUTOS ENTRE A FAIXA DE PREÇO x E y ==============="
+                                + "\nDigite o limite superior");
+                            }else{
+                                sairFaixaDePrecoMaior = true;
+                            }
+                        }while(!sairFaixaDePrecoMaior);
+    
+                        faixaDePrecoSuperior = Double.parseDouble(faixaDePrecoSuperiorStr);
+
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Digite as entradas corretamente");
+                        e.getStackTrace();
+                    }
+                    String stringExibir = "Lista vazia";
+
+                    if (sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInfeiror, faixaDePrecoSuperior).isEmpty()) {
+                        JOptionPane.showMessageDialog(null, stringExibir);
+                    }else{
+                        stringExibir = "";
+                        Collection<Produto> produtosNaFaixaDePreco = sistema.pesquisaProdutosEmFaixaDePreco(faixaDePrecoInfeiror, faixaDePrecoSuperior);
+                        
+                        for(Produto p: produtosNaFaixaDePreco){
+                            stringExibir +=  p.getDescricao();
+                            stringExibir +=  "\n";
+                        }
+                        JOptionPane.showMessageDialog(null, stringExibir);
+                    }
+
+                    //Retorna ao menu principal.
+                    break;
+
                 case "7":
-                    // Pesquisa produtos com uma descrição TODO
+                    // Pesquisa produtos com uma descrição
+                    String prefixo = JOptionPane.showInputDialog("Digite a descricao do produto a ser pesquisado: "); 
+                    do{
+                        prefixo = JOptionPane.showInputDialog("Digite uma descrição válida dos produtos a serem pesquisados:");
+                    }while(prefixo.length() == 0);
+
+                    Collection<Produto> produtos = sistema.pesquisaProdutosComDescricaoComecandoCom(prefixo);
+                    String strExibir = "";
+                    for(Produto p: produtos){
+                        strExibir +=  p.getDescricao();
+                        strExibir +=  "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, strExibir);
+
+                    //Retorna ao menu principal
+                    break;
+
                 case "8":
                     // Sair
                     JOptionPane.showMessageDialog(null, "Fechando programa...");
