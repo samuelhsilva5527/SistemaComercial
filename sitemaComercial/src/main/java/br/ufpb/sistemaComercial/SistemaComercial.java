@@ -24,4 +24,9 @@ public interface SistemaComercial {
 
 	public Map<String, Produto> pesquisarTodosOsProdutos();
 
+	public boolean gravarDados();
+
+	public void recuperarDados();
+	public Map <String,Produto> getP();
+
 }

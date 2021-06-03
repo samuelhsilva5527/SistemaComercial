@@ -27,7 +27,7 @@ public class SistemaComercialMain {
 
             switch (entrada) {
                 case "1":
-                    // Pesquisa Produto
+                    // Pesquisa Produto@
                     while (true) {
 
                         try {
@@ -73,6 +73,7 @@ public class SistemaComercialMain {
                                             + "\n[3] - PRODUTO_DE_LIMPEZA");
 
                             switch (categoria) {
+                                
                                 case "1":
                                     cadastrou = sistema.cadastraProduto(new Produto(codigo, descricao, precoVenda, quantEstoque, CategoriaProduto.ALIMENTO));
                                     break;
@@ -82,6 +83,7 @@ public class SistemaComercialMain {
                                 case "3":
                                     cadastrou = sistema.cadastraProduto(new Produto(codigo, descricao, precoVenda, quantEstoque, CategoriaProduto.PRODUTO_DE_LIMPEZA));
                                     break;
+
                             }
 
                             if (cadastrou) {
@@ -339,7 +341,8 @@ public class SistemaComercialMain {
 
                 case "8":
                     // Sair
-                    JOptionPane.showMessageDialog(null, "Fechando programa...");
+                    sistema.gravarDados();
+                    JOptionPane.showMessageDialog(null, "As informações foram armazenadas, Fechando programa...");
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Número ou Caractere Inválido");
